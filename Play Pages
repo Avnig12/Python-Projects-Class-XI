@@ -1,0 +1,443 @@
+while True:
+    print("Welcome to Play Pages!")
+    print("    1. Hangman")
+    print("    2. Guess the Number")
+    print("    3. GK Quiz")
+    print("    4. Marvel Quiz")
+    print("    5. End Game")
+    ch=int(input("Select the game you wish to play(1,2,3,4,5): "))
+    if(ch==1):
+        import random
+        words = ["python", "performance", "programming", "identity", "refrigerator", "device", "developer",
+                 "marathon", "algorithm", "dictionary", "directory", "photocopy", "project", "binary",
+                 "disappointed", "experienced", "progressive", "tournament", "champion", "hemisphere"]
+        selected_word = random.choice(words)
+        current_state = ['_'] * len(selected_word)
+        max_attempts = 6
+        incorrect_guesses = 0
+        hangman_art = [
+            '''
+             -----
+                 |
+                 |
+                 |
+                 |
+            ''',
+            '''
+             -----
+             O   |
+                 |
+                 |
+                 |
+            ''',
+            '''
+             -----
+             O   |
+             |   |
+                 |
+                 |
+            ''',
+            '''
+             -----
+             O   |
+            /|   |
+                 |
+                 |
+            ''',
+            '''
+             -----
+             O   |
+            /|\  |
+                 |
+                 |
+            ''',
+            '''
+             -----
+             O   |
+            /|\  |
+            /    |
+                 |
+            ''',
+            '''
+             -----
+             O   |
+            /|\  |
+            / \  |
+                 |
+            '''
+        ]
+
+        print("Welcome to Hangman!")
+        print("Try to guess the word.")
+
+        while incorrect_guesses < max_attempts:
+            print(" ".join(current_state))
+            print(hangman_art[incorrect_guesses])
+            guess = input("Enter a letter: ").lower()
+            if guess in selected_word:
+                for i in range(len(selected_word)):
+                    if selected_word[i] == guess:
+                        current_state[i] = guess
+            else:
+                print("Incorrect guess")
+                incorrect_guesses += 1
+
+            if "_" not in current_state:
+                print("Congratulations! You guessed the word:", selected_word)
+                break
+
+        if incorrect_guesses == max_attempts:
+            print(hangman_art[incorrect_guesses])
+            print("Sorry, you've run out of attempts. The correct word was:", selected_word)
+    elif(ch==2):
+        import random
+
+        secret_number = random.randint(1, 100)
+        attempts = 0
+        max_attempts = 7
+
+        print("Welcome to Guess the Number Game!")
+        print("Try to guess the number between 1 and 100.")
+
+        while attempts < max_attempts:
+            guess = int(input("Enter your guess: "))
+            if guess == secret_number:
+                print(f"Congratulations! You guessed the correct number ({secret_number}) in {attempts + 1} attempts.")
+                break
+            elif guess < secret_number:
+                print("Too low. Try again.")
+            else:
+                print("Too high. Try again.")
+
+            remaining_attempts = max_attempts - (attempts + 1)
+            if remaining_attempts > 1:
+                print(f"You have {remaining_attempts} attempts remaining.")
+            elif remaining_attempts == 1:
+                print("This is your last attempt.")
+            else:
+                print("No more attempts left.")
+
+            if attempts == 2:
+                print(f"Hint: The number is between {secret_number - 12} and {secret_number + 12}.")
+
+            attempts += 1
+
+            if attempts == max_attempts:
+                print(f"Sorry, you've run out of attempts. The correct number was {secret_number}.")
+
+
+    elif(ch==3):
+         print("Welcome to our Quiz on the topic GK.....")
+         total_score=0
+         print(""" Instructions:
+        1. The quiz consists of 15 questions.
+        2. There are 4 options.
+        3. Type your answer(a/b/c/d).
+        4. All questions are compulsory.""")
+         print("Let's start !")
+         print("""Q1. What is the capital city of Canada?
+        a. Toronto
+        b. Ottawa
+        c. Vancouver
+        d. Montreal""")
+         a1=input("Enter your choice(a/b/c/d):")
+         if (a1 =="b"):
+            print("Correct answer!")
+            total_score+= 1
+         else:
+            print("Wrong answer! Correct answer is (b) Ottawa")
+         print("""Q2. Which country is known as the "Land of the Rising Sun"?
+        a. China
+        b. Japan
+        c. South Korea
+        d. Vietnam""")
+         a2=input("Enter your choice(a/b/c/d):")
+         if (a2 =="b"):
+            print("Correct answer!")
+            total_score+= 1
+         else:
+            print("Wrong answer! Correct answer is (b) Japan")
+         print("""Q3. Who painted the famous artwork "Starry Night"?
+        a. Vincent van Gogh
+        b. Pablo Picasso
+        c. Leonardo da Vinci
+        d. Claude Monet""")
+         a3=input("Enter your choice(a/b/c/d):")
+         if (a3 =="a"):
+            print("Correct answer!")
+            total_score+= 1
+         else:
+            print("Wrong answer! Correct answer is (a) Vincent van Gogh ")
+         print("""Q4.What is the largest ocean on Earth?
+    a. Atlantic Ocean
+    b. Indian Ocean
+    c. Pacific Ocean
+    d. Arctic Ocean""")
+         a4=input("Enter your choice(a/b/c/d):")
+         if (a4 =="c"):
+            print("Correct answer!")
+            total_score+= 1
+         else:
+            print("Wrong answer! Correct answer is (c)Pacific Ocean")
+         print("""Q5.Who wrote the novel "Pride and Prejudice"?
+    a. Charles Dickens
+    b. Jane Austen
+    c. F. Scott Fitzgerald
+    d. George Orwell""")
+         a5=input("Enter your choice(a/b/c/d):")
+         if (a5 =="b"):
+            print("Correct answer!")
+            total_score+= 1
+         else:
+            print("Wrong answer! Correct answer is (b)Jane Austen")
+         print("""Q6.Which planet is known as the "Red Planet"?
+    a. Mars
+    b. Venus
+    c. Jupiter
+    d. Saturn""")
+         a6=input("Enter your choice(a/b/c/d):")
+         if (a6 =="a"):
+            print("Correct answer!")
+            total_score+= 1
+         else:
+            print("Wrong answer! Correct answer is (a)Mars")
+
+         print("""Q7. Which American poet wrote "The Road Not Taken"?
+    a. Walt Whitman
+    b. Emily Dickinson
+    c. Robert Frost
+    d. Langston Hughes""")
+         a7=input("Enter your choice(a/b/c/d):")
+         if (a7=="c"):
+            print("Correct answer!")
+            total_score+= 1
+         else:
+            print("Wrong answer! Correct answer is (c)Robert Frost")
+
+         print("""Q8. Who was the first Indian to win a Booker Prize for Fiction?
+    a. Arundhati Roy
+    b. Salman Rushdie
+    c. Kiran Desai
+    d. Jhumpa Lahiri""")
+         a8=input("Enter your choice(a/b/c/d):")
+         if (a8 =="a"):
+            print("Correct answer!")
+            total_score+= 1
+         else:
+             print("Wrong answer! Correct answer is (a)Arundhati Roy")
+
+         print("""Q9. What is the main ingredient in guacamole?
+    a. Tomatoes
+    b. Avocado
+    c. Onions
+    d. Cilantro""")
+         a9=input("Enter your choice(a/b/c/d):")
+         if (a9 =="b"):
+            print("Correct answer!")
+            total_score+= 1
+         else:
+            print("Wrong answer! Correct answer is (b)Avocado")
+
+         print("""Q10. In which year did the Titanic sink?
+    a. 1905
+    b. 1912
+    c. 1920
+    d. 1931""")
+         a10=input("Enter your choice(a/b/c/d):")
+         if (a10 =="b"):
+            print("Correct answer!")
+            total_score+= 1
+         else:
+            print("Wrong answer! Correct answer is (b)1912")
+
+         print("""Q11. Which mountain range separates Europe and Asia?
+    a. Andes
+    b. Himalayas
+    c. Alps
+    d. Ural Mountains""")
+         a11=input("Enter your choice(a/b/c/d):")
+         if (a11 =="d"):
+            print("Correct answer!")
+            total_score+= 1
+         else:
+             ("Wrong answer! Correct answer is (d)Ural Mountains")
+         print("""Q12. In which year did the Indian Space Research Organization (ISRO) launch its first satellite, Aryabhata?
+    a. 1969
+    b. 1975
+    c. 1979
+    d. 1982""")
+         a12=input("Enter your choice(a/b/c/d):")
+         if (a12 =="c"):
+            print("Correct answer!")
+            total_score+= 1
+         else:
+            print("Wrong answer! Correct answer is (c)1979")
+
+         print("""Q13. In astronomy, what is the name of the largest moon of Saturn?
+    a. Titan
+    b. Europa
+    c. Ganymede
+    d. Callisto""")
+         a13=input("Enter your choice(a/b/c/d):")
+         if (a13 =="a"):
+            print("Correct answer!")
+            total_score+= 1
+         else:
+            print("Wrong answer! Correct answer is (a)Titan")
+
+         print("""Q14. What is the main component of the Earth's core? 
+    a. Iron 
+    b. Nickel 
+    c. Copper 
+    d. Zinc""")
+         a14=input("Enter your choice(a/b/c/d):")
+         if (a14 =="a"):
+            print("Correct answer!")
+            total_score+= 1
+         else:
+            print("Wrong answer! Correct answer is (a)Iron")
+
+         print("""Q15. Which artist is associated with the style of painting known as Cubism? 
+    a. Pablo Picasso 
+    b. Vincent van Gogh 
+    c. Claude Monet 
+    d. Leonardo da Vinci""")
+         a15=input("Enter your choice(a/b/c/d):")
+         if (a15 =="a"):
+            print("Correct answer!")
+            total_score+= 1
+         else:
+            print("Wrong answer! Correct answer is (a)Pablo Picasso")
+         print("Your Total score is:\n",total_score, "out of 15")
+         print("Thank You for Playing with us..")
+
+    elif(ch==4):
+         print("Welcome to the MARVEL QUIZ.....")
+         total_score=0
+         print(""" Instructions:
+        1. Quiz consists of 10 questions.
+        2. There are 4 options.
+        3. Type your answer(a/b/c/d).
+        4. All questions are compulsory.""")
+         print("Let's start !")
+         print("""In the Marvel Cinematic Universe (MCU), what is Black Widow's real name?
+    a. Natasha Romanoff
+    b. Wanda Maximoff
+    c. Carol Danvers
+    d. Hope van Dyne""")
+         ans1=input("Enter your choice(a/b/c/d):")
+         if (ans1 =="a"):
+            print("Correct answer!")
+            total_score+= 1
+         else:
+            print("Wrong answer! Correct answer is (a) Natasha Romanoff")
+         print("""What is the name of Doctor Strange's mentor in the mystic arts?
+    a. Wong
+    b. Mordo
+    c. The Ancient One
+    d. Dormammu""")
+         ans2=input("Enter your choice(a/b/c/d):")
+         if (ans2 =="c"):
+            print("Correct answer!")
+            total_score+= 1
+         else:
+            print("Wrong answer! Correct answer is (c) The Ancient One")
+         print("""Q3. In "Avengers: Endgame," who wields Thor's hammer, Mjolnir, during the battle against Thanos?
+    a. Tony Stark
+    b. Steve Rogers
+    c. Bruce Banner
+    d. Thor Odinson""")
+         ans3=input("Enter your choice(a/b/c/d):")
+         if (ans3 =="a"):
+            print("Correct answer!")
+            total_score+= 1
+         else:
+            print("Wrong answer! Correct answer is (b) Steve Rogers ")
+         print("""Q4. What is the name of the organization responsible for creating and controlling the Winter Soldiers in "Captain America: Civil War"?
+    a. H.A.M.M.E.R.
+    b. A.I.M.
+    c. HYDRA
+    d. The Ten Rings""")
+         ans4=input("Enter your choice(a/b/c/d):")
+         if (ans4 =="c"):
+            print("Correct answer!")
+            total_score+= 1
+         else:
+            print("Wrong answer! Correct answer is (c) Hydra")
+         print("""Q5. Which planet is the homeworld of the Grandmaster in "Thor: Ragnarok"?
+    a. Sakaar
+    b. Xandar
+    c. Knowhere
+    d. Ego""")
+         ans5=input("Enter your choice(a/b/c/d):")
+         if (ans5 =="a"):
+            print("Correct answer!")
+            total_score+= 1
+         else:
+            print("Wrong answer! Correct answer is (a) Sakaar")
+         print("""Q6. What is the name of the technology company founded by Tony Stark in the MCU?
+    a. Stark Enterprises
+    b. Stark Industries
+    c. Stark Innovations
+    d. Stark Technologies""")
+         ans6=input("Enter your choice(a/b/c/d):")
+         if (ans6 =="b"):
+            print("Correct answer!")
+            total_score+= 1
+         else:
+            print("Wrong answer! Correct answer is Id (b) Stark Industries")
+
+         print("""Q7. In "Doctor Strange," what mystical artifact is used to manipulate time?
+    a. Eye of Agamotto
+    b. Orb of Teleportation
+    c. The Staff of Levitation
+    d. Book of Vishanti""")
+         ans7=input("Enter your choice(a/b/c/d):")
+         if (ans7=="a"):
+            print("Correct answer!")
+            total_score+= 1
+         else:
+            print("Wrong answer! Correct answer is (a) Eye of Agamotto")
+
+         print("""Q8. What is the name of the fictional African country ruled by T'Challa?
+    a. Wakanda
+    b. Zamunda
+    c. Latveria
+    d. Genovia""")
+         ans8=input("Enter your choice(a/b/c/d):")
+         if (ans8 =="a"):
+            print("Correct answer!")
+            total_score+= 1
+         else:
+             print("Wrong answer! Correct answer is (a) Wakanda")
+
+         print("""Q9. Which Marvel character is known for saying, "I can do this all day"?
+    a. Iron Man
+    b. Captain America
+    c. Spider-Man
+    d. Black Widow""")
+         ans9=input("Enter your choice(a/b/c/d):")
+         if (ans9 =="b"):
+            print("Correct answer!")
+            total_score+= 1
+         else:
+            print("Wrong answer! Correct answer is (b) Captain America")
+
+         print("""Q10. In "Avengers: Infinity War," which character is the first to perish when Thanos acquires the Soul Stone?
+    a. Loki
+    b. Heimdall
+    c. Gamora
+    d. Vision""")
+         ans10=input("Enter your choice(a/b/c/d):")
+         if (ans10 =="c"):
+            print("Correct answer!")
+            total_score+= 1
+         else:
+            print("Wrong answer! Correct answer is (c) Gamora")
+         print("Your Total score is:\n",total_score, "out of 10")
+         print("Hope you enjoyed the game..")
+    else:
+         print("Invalid Choice")
+    if (ch==5):
+        print("We respect your choice, Quitting......")
+        break
