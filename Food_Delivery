@@ -1,0 +1,67 @@
+import mysql.connector
+
+# Step 1: Database Connection
+connection = mysql.connector.connect(
+    host="localhost",        # Change to your database host
+    user="root",             # Change to your username
+    password="ahlcon",       # Change to your password
+    database="food"          # Database name
+)
+cursor = connection.cursor(dictionary=True)
+print("Connected to the database successfully!")
+
+# Fetch the menu
+cursor.execute("SELECT * FROM CafeMenu")
+menu = cursor.fetchall()
+
+# Display the menu
+print("Welcome to the Cafe! Here's the menu:\n")
+print(f"{'ItemCode':<10} {'ItemName':<30} {'ItemPrice (₹)':<15}")
+print("-" * 55)
+for item in menu:
+    print(f"{item['ItemCode']:<10} {item['ItemName']:<30} {item['ItemPrice']:<15}")
+print("\n")
+
+# Take the order
+print("Enter the ItemCodes of the items you'd like to order. Enter '0' to finish.\n")
+order = []
+while True:
+    try:
+        item_code = int(input("Enter ItemCode (or 0 to finish): "))
+        if item_code == 0:
+            break
+        item = next((item for item in menu if item["ItemCode"] == item_code), None)
+        if item:
+            order.append(item)
+            print(f"Added {item['ItemName']} to your order.")
+        else:
+            print("Invalid ItemCode. Please try again.")
+    except ValueError:
+        print("Please enter a valid numeric ItemCode.")
+
+# Calculate total price
+total_price = sum(item['ItemPrice'] for item in order)
+discounted_price = int(total_price * 0.9)  # Apply 10% discount
+
+# Get the customer's name
+if order:
+    print("\nYour Order Summary:")
+    for item in order:
+        print(f"{item['ItemName']} - ₹{item['ItemPrice']}")
+    print(f"\nTotal Price: ₹{total_price}")
+    print(f"Discounted Price (10% off): ₹{discounted_price}")
+
+    customer_name = input("\nEnter your name to save the bill: ").strip()
+
+    # Save the customer's name and bill to the database
+    cursor.execute(
+        "INSERT INTO Customer (CustomerName, TotalBill) VALUES (%s, %s)",
+        (customer_name, discounted_price)
+    )
+    connection.commit()
+    print("Your bill has been saved successfully!")
+else:
+    print("\nYou didn't order anything. Thank you for visiting!")
+
+# Close the database connection
+connection.close()
